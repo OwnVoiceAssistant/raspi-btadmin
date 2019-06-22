@@ -1,0 +1,9 @@
+%echo Generating OwnVoiceAssistant key
+%no-protection
+Key-Type: default
+Subkey-Type: default
+Name-Real: OwnVoiceAssistant
+Name-Email: tech@ownvoiceassistant.com
+Expire-Date: 0
+%commit
+%echo done
