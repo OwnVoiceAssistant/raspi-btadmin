@@ -10,7 +10,7 @@ setup:
 	-sudo rngd
 	gpg --batch --generate-key src/gpg/gen-key-conf
 	/usr/bin/pass init OwnVoiceAssistant
-	echo -e "pi\nraspberry" | /usr/bin/pass insert Bluetooth/Admin
+	echo -e "raspberry\nraspberry" | /usr/bin/pass insert Bluetooth/Admin
 	sudo sed -i -e '$i \echo "discoverable on" | sudo /usr/bin/bluetoothctl\n' /etc/rc.local
 
 install:

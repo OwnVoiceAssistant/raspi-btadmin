@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# Usage : $0 <password> <SSID> <PSK>
+# Usage : $0 <password> <COUNTRY_CODE> <SSID> <PSK_CLEAR>
 PASSWORD=$1
-SSID=$2
-PSK=$3
+COUNTRY=$2
+SSID=$3
+PSK=$4
+OUTPUT=`wpa_passphrase ${SSID} ${PSK}`
 
 CHECK="$(/usr/bin/pass Bluetooth/Admin)"
 if [ "$CHECK" != "$PASSWORD" ]; then exit -1; fi
@@ -11,13 +13,10 @@ if [ "$CHECK" != "$PASSWORD" ]; then exit -1; fi
 sudo cp /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.old
 
 cat <<EOF | sudo tee /etc/wpa_supplicant/wpa_supplicant.conf
-country=US
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
+country=${COUNTRY}
 
-network={
-        ssid="${SSID}"
-        psk="${PSK}"
-}
+${OUTPUT}
 
 EOF
